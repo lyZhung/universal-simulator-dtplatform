@@ -1,0 +1,85 @@
+{   
+	"HIVE_CFG":{
+	 	"HIVE_HOST": "192.168.33.22",        
+        "HIVE_SERVER_PORT": "10000",
+        "HIVE_USER":"hive",
+        "HIVE_PWD":"hive",
+        "HIVE_DB_NAME":"analyze"
+	},	
+   "ES_CFG": {
+        "ES_HOSTS": "192.168.33.12:8100"
+    },
+    "REDIS_CFG": {
+        "REDIS_HOST": "192.168.33.23",
+        "REDIS_DECODE_COMPONENTS": "TRUE",
+        "REDIS_PORT": "6379"
+    },
+    "ZOOKEEPER_CFG": {
+        "HOSTS": "192.168.33.21:2181,192.168.33.22:2181,192.168.33.23:2181"
+    },   
+    "HBASE_CFG": {
+        "HOST": "192.168.33.21"
+    },    
+    "SPARK_CFG": {
+        "KAFKA_OFFSET_REDIS_DB_NUMBER": 6,
+        "DSTREAM_INTERVAL_DEFAULT": "5"
+    },
+    "KAFKA_CFG": {
+        "KAFKA_AUTO_OFFSET_RESET_FROM_LATEST": "largest",
+        "KAFKA_AUTO_OFFSET_RESET_FROM_BEGINNING": "smallest",
+        "KAFKA_HOSTS": "192.168.33.21:6667",
+        "KAFKA_TIME_OUT":"1000"
+    },
+    "XianglongConfig": {
+        "ETL_IN_KAFKA_TOPIC": "analyze",
+        "SPARK_BATCH_DURATION": 10,
+        "REDIS_DB_NUMBER": 2,
+        "CACHE_INTERVAL": 30,
+        "MAX_RECORD": 10000,
+        "KAFKA_MAX_RATE":10000,
+        "SPARK_PARALLELISM":2,        
+        "JSON_SCHEMA_FILENAME":"schema.json",
+        "ETL_MAPPING":"etl_Mapping.json",
+        "TENANCY_NAM":"analyze"
+   },
+    "logBkConfig": {
+        "ETL_IN_KAFKA_TOPIC": "bglog",
+        "SPARK_BATCH_DURATION": 10,
+        "REDIS_DB_NUMBER": 3,
+        "CACHE_INTERVAL": 30,
+        "MAX_RECORD": 10000,
+        "KAFKA_MAX_RATE":10000,       
+        "SPARK_PARALLELISM":2,                
+        "SUB_LIST_BATCH_NUM": 10,
+		"JSON_SCHEMA_FILENAME":"schema.json",
+        "ETL_MAPPING":"etl_Mapping.json",
+        "TENANCY_NAM":"analyze"
+    },
+    "logNgConfig": {
+        "ETL_IN_KAFKA_TOPIC": "nglog",
+        "SPARK_BATCH_DURATION": 10,
+        "REDIS_DB_NUMBER": 4,
+        "CACHE_INTERVAL": 30,
+        "MAX_RECORD": 10000,
+        "KAFKA_MAX_RATE":10000,       
+        "SPARK_PARALLELISM":2,                
+        "SUB_LIST_BATCH_NUM": 10,
+		"JSON_SCHEMA_FILENAME":"schema.json",
+        "ETL_MAPPING":"etl_Mapping.json",
+        "TENANCY_NAM":"analyze"
+    },
+    "esConfig": {
+        "ETL_IN_KAFKA_TOPIC": "canal_msg",
+        "SPARK_BATCH_DURATION": 10,
+        "REDIS_DB_NUMBER": 5,
+        "CACHE_INTERVAL": 30,
+        "MAX_RECORD": 10000,
+        "KAFKA_MAX_RATE":10000,       
+        "SPARK_PARALLELISM":2,                
+        "SUB_LIST_BATCH_NUM": 10,
+		"JSON_SCHEMA_FILENAME":"schema.json",
+        "ETL_MAPPING":"etl_Mapping.json",
+        "TENANCY_NAM":"analyze"
+    }
+   
+}

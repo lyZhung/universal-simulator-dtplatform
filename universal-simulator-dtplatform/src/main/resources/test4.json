@@ -1,0 +1,26 @@
+{
+  "loggers": {
+    "elog": {
+      "level": "ERROR|WARN|INFO|DEBUG",
+      "handlers": ["console","debug_file_handler","kafka_handler"],
+      "propagate": "no"
+    },
+    "root": {
+      "level": "ERROR|WARN|INFO|DEBUG",
+      "handlers": ["console","debug_file_handler","kafka_handler"]
+    },
+
+    "path": [
+      {
+        "event": "bookedTrip"
+      },
+      {
+        "event": "bookedTripStart"
+      },
+      {
+        "event": "bookedTripEnd"
+      }
+    ]
+  }
+
+}
