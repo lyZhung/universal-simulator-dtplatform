@@ -1,19 +1,23 @@
-package com.dtyunxi.dtplatform.utils;
+package com.dtyunxi.dtplatform.timer;
 
 import com.dtyunxi.dtplatform.model.Config;
 import com.dtyunxi.dtplatform.simulator.UniversalDataSimulator;
+import com.dtyunxi.dtplatform.utils.HdfsUtils;
+import com.dtyunxi.dtplatform.utils.KafkaUtils;
+import com.dtyunxi.dtplatform.utils.SimulatorUtils;
 import kafka.javaapi.producer.Producer;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.log4j.Logger;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimerUtils extends TimerTask{
+public class StartTimer extends TimerTask{
     private Config config;
-    public static Logger logger = Logger.getLogger(TimerTask.class);
+    public static Logger logger = Logger.getLogger(StartTimer.class);
 
 
-    public TimerUtils(Config config) {
+    public StartTimer(Config config) {
         this.config = config;
     }
 
@@ -40,7 +44,12 @@ public class TimerUtils extends TimerTask{
         }
 
         Producer<String, String> producer = KafkaUtils.getProducer(config);
+        FileSystem fileSystem=null;
+
+        fileSystem = HdfsUtils.getFileSystem(config);
+
         config.setProducer(producer);
+        config.setFileSystem(fileSystem);
         Integer threadNum = Integer.parseInt(config.getThreadNum().equals("")?"5":config.getThreadNum());
 
 

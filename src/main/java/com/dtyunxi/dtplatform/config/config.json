@@ -1,16 +1,27 @@
 {
   "messModel":{
-    "path":"F:\\source\\universal-simulator-dtplatform\\src\\main\\resources\\test1.json"
+    "paths":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json"
   },
   "execute":{
-    "startTime":"",
-    "endTme":"",
-    "totalMessage":""
+    "startTime":"2017-12-13 09:00:00",
+    "endTime":"2017-12-14 17:59:15",
+    "threadNum":"10",
+    "totalMess":"500"
   },
-  "output":[
-    "kafka",
-    "hdfs",
-    "localFile"
-  ]
-
+  "output": {
+    "kafka":{
+      "metadata.broker.list": "192.168.33.21:6667",
+      "producer.type":"sync",
+      "serializer.class":"kafka.serializer.StringEncoder",
+      "topics":"simulator1"
+    },
+    "hdfs":{
+      "uri":"hdfs://yx3321.dtyunxi.com:8020",
+      "user":"admin",
+      "paths":""
+    },
+    "localFile":{
+      "paths":""
+    }
+  }
 }

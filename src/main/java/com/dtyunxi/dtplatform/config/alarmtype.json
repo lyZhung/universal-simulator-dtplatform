@@ -42,7 +42,7 @@
         ]
     },
     {
-        "type":"<alarm activation>",
+        "type":"\\<alarm activation\\>",
         "tag":[
                 {
                     "event":"TBD. Wait for Fredrik to confirm if in-vehicle device will send this data."

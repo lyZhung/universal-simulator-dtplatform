@@ -43,7 +43,7 @@
       "hosts_list":"192\\.168\\.33\\.21:6667",
       "topic":"dtyunxi_elog"
     }
-  }
+  },
   "loggers": {
     "elog": {
       "level": "ERROR|WARN|INFO|DEBUG",

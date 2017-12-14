@@ -1,3 +1,21 @@
+[
+  {
+    "model":"",
+
+    "execute":{
+      "startTime":"2017-12-13 09:00:00",
+      "endTime":"2017-12-13 17:59:15",
+      "threadNum":"1",
+      "totalMess":"100"
+    },
+
+
+
+  }
+
+]
+
+
 {
   "messModel":{
     "paths":["F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json","F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\alarmevent.json"]
