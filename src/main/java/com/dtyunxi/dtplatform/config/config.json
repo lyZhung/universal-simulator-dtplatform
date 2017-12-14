@@ -13,7 +13,7 @@
       "metadata.broker.list": "192.168.33.21:6667",
       "producer.type":"sync",
       "serializer.class":"kafka.serializer.StringEncoder",
-      "topics":"simulator1"
+      "topics":"simulator1,simulator2"
     },
     "hdfs":{
       "uri":"hdfs://yx3321.dtyunxi.com:8020",
