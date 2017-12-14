@@ -310,7 +310,7 @@ public class Test {
     }
 
     @org.junit.Test
-    public void testKafka(){
+    public void testKafka() throws Exception {
         String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\configBak.json";
         Config config = ConfigUtils.getConfig(configFile);
         Producer<String, String> producer = KafkaUtils.getProducer(config);

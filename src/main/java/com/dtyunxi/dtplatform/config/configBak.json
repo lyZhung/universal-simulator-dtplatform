@@ -2,7 +2,7 @@
   "server":{
     "kafka": {
       "metadata.broker.list": "192.168.33.21:6667",
-      "producer.type":"sync",
+      "producer.type":"async",
       "serializer.class":"kafka.serializer.StringEncoder"
     },
     "hdfs":{
@@ -11,13 +11,13 @@
     }
   },
   "startTime": "2017-12-13 09:00:00",
-  "endTime": "2017-12-14 19:59:15",
+  "endTime": "2017-12-14 20:59:15",
 
    "models":[
     {
       "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json",
-      "threads":"20",
-      "total":"1000",
+      "threads":"5",
+      "total":"10000",
       "exports": [
         {
           "type":"kafka",
@@ -36,8 +36,8 @@
 
     {
       "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\alarmevent.json",
-      "threads":"15",
-      "total":"500",
+      "threads":"6",
+      "total":"50000",
       "exports": [
         {
           "type":"kafka",

@@ -4,8 +4,10 @@ import com.dtyunxi.dtplatform.model.Config;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
+import org.apache.hadoop.hdfs.DFSClient;
 import org.bson.Document;
 
+import java.nio.channels.ClosedChannelException;
 import java.util.Properties;
 
 public class KafkaUtils {
@@ -24,7 +26,7 @@ public class KafkaUtils {
         return producer;
     }
 
-    public static void sendMess(String topic,String log,Producer producer){
+    public static void sendMess(String topic, String log, Producer producer){
         /**
          * 加载消息
          */

@@ -17,7 +17,7 @@ public class SimulatorUtils {
     public  Long totalMessing=1L;
     public static Logger logger = Logger.getLogger(SimulatorUtils.class);
 
-    public  void dataSimulator(Config config, final Model model, final UniversalDataSimulator universalDataSimulator){
+    public  void dataSimulator(final Config config, final Model model, final UniversalDataSimulator universalDataSimulator){
         final String vmodel = model.getModel();
         final Long total = Long.parseLong(model.getTotal().equals("")?String.valueOf(Long.MAX_VALUE):model.getTotal());
         final List<Map<String, String>> exports = model.getExports();
@@ -28,8 +28,10 @@ public class SimulatorUtils {
 
         for (int i = 0; i < threads; i++) {
            new Thread(threadGroup,new Runnable() {
+
                 public void run() {
-                    while (true) {
+
+                    while (!Thread.interrupted()) {
                         String message = null;
                         try {
                             Document messModelDoc = Document.parse(JsonUtils.getJson(vmodel));
@@ -69,11 +71,14 @@ public class SimulatorUtils {
                         }
                         synchronized (universalDataSimulator) {
                             totalMessing++;
-                            System.out.println("total:" + total + ",Thread.currentThread().getName():" + Thread.currentThread().getName());
                             if (totalMessing > total) {
-                                logger.warn(model.getModel() + ",data is put already,program is exit.pieces of " + (totalMessing - 1) + " data is produced.");
+                                logger.warn("The model of ["+model.getModel().substring(model.getModel().lastIndexOf("\\")+1) + "],data is put already,program is exit.pieces of " + (totalMessing - 1) + " data is produced.");
                                 Thread.currentThread().getThreadGroup().stop();
-
+                                System.out.println("Thread.activeCount():"+Thread.activeCount());
+                                if (Thread.activeCount()==1){
+                                    logger.warn("All thread is killed");
+                                    System.exit(0);
+                                }
                             }
                         }
                     }
@@ -81,7 +86,5 @@ public class SimulatorUtils {
                 }
             }).start();
         }
-
-
     }
 }
