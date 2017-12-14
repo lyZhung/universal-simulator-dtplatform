@@ -2,7 +2,7 @@
 	"eventName": "{\"regex\":\"TRIP\",\"type\":\"string\"}",
 	"version": "{\"regex\":\"1\\\\.0\",\"type\":\"string\"}",
 	"eventType": "{\"regex\":\"NEW\",\"type\":\"string\"}",
-	"timeInMs": "{\"regex\":\"timestamp\",\"unit\":\"ms\",\"type\":\"long\"}",
+	"timeInMs": "{\"regex\":\"date\",\"format\":\"yyyy-MM-dd HH:mm:ss\",\"type\":\"string\"}",
 	"oem": "{\"regex\":\"RTA\",\"type\":\"string\"}",
 	"entityId": "{\"regex\":\"$TRIP_ID\",\"type\":\"string\"}",
 	"value": {

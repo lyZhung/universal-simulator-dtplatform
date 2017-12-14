@@ -17,4 +17,11 @@ public class DateUtils {
        }
        return date;
    }
+
+   public static String getDate(Date date,String format){
+       SimpleDateFormat sdf= new SimpleDateFormat(format);
+       String formatDate = sdf.format(date);
+       return formatDate;
+   }
+
 }

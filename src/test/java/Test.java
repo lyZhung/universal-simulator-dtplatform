@@ -254,4 +254,36 @@ public class Test {
         Generex regex = new Generex(parse.getString("regex"));
         System.out.println(regex.random());
     }
+
+    @org.junit.Test
+    public void testSwitch(){
+        String value="";
+    }
+
+    @org.junit.Test
+    public void testThread(){
+
+        for (int i = 0; i < 3; i++) {
+            new Thread(new Runnable() {
+                public void run() {
+                    System.out.println(Thread.currentThread());
+                    for (int j = 0; j <5 ; j++) {
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                System.out.println(Thread.currentThread());
+                            }
+                        }).start();
+                    }
+
+                }
+            }).start();
+        }
+
+
+    }
 }

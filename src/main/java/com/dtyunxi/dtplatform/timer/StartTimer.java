@@ -11,16 +11,13 @@ import org.apache.log4j.Logger;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 public class StartTimer extends TimerTask{
     private Config config;
     public static Logger logger = Logger.getLogger(StartTimer.class);
 
-
     public StartTimer(Config config) {
         this.config = config;
     }
-
     public Config getConfig() {
         return config;
     }
@@ -37,12 +34,10 @@ public class StartTimer extends TimerTask{
 
         final UniversalDataSimulator universalDataSimulator = new UniversalDataSimulator();
         final String[] messModels = config.getMessModels();
-
         if (messModels.length<1||(messModels.length==1&&messModels[0].equals(""))){
             logger.error("message's model can't is empty,program is exit");
             System.exit(1);
         }
-
         Producer<String, String> producer = KafkaUtils.getProducer(config);
         FileSystem fileSystem=null;
 
@@ -51,7 +46,6 @@ public class StartTimer extends TimerTask{
         config.setProducer(producer);
         config.setFileSystem(fileSystem);
         Integer threadNum = Integer.parseInt(config.getThreadNum().equals("")?"5":config.getThreadNum());
-
 
         for (int i = 0; i < threadNum; i++) {
             new Thread(new Runnable() {

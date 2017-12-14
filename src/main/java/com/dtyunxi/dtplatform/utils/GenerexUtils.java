@@ -4,6 +4,8 @@ import com.mifmif.common.regex.Generex;
 import org.bson.Document;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class GenerexUtils {
@@ -33,14 +35,15 @@ public class GenerexUtils {
             return String.valueOf(value);
         }*/
 
+
         String regexType = String.valueOf(object);
         Document document = Document.parse(regexType);
         String type = document.getString("type");
         String regex = document.getString("regex");
+
         String value=null;
         if (regex.equals("timestamp")){
             String unit = document.getString("unit");
-
             if (unit.equals("ms")){
                 if (type.equals("long")){
                     return new Date().getTime() / 1000;
@@ -57,8 +60,9 @@ public class GenerexUtils {
                 }
             }
         }else if (regex.equals("date")){
-            Long timestamp = new Date().getTime();
-            return timestamp.intValue();
+            String format = document.getString("format");
+            String date = DateUtils.getDate(new Date(), format);
+            return date;
         }else {
             Generex generex = new Generex(regex);
             value = generex.random();

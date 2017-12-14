@@ -6,14 +6,14 @@
     "startTime":"2017-12-13 09:00:00",
     "endTime":"2017-12-14 17:59:15",
     "threadNum":"10",
-    "totalMess":"500"
+    "totalMess":"5000"
   },
   "output": {
     "kafka":{
       "metadata.broker.list": "192.168.33.21:6667",
       "producer.type":"sync",
       "serializer.class":"kafka.serializer.StringEncoder",
-      "topics":"simulator1,simulator2"
+      "topics":"simulator1"
     },
     "hdfs":{
       "uri":"hdfs://yx3321.dtyunxi.com:8020",
