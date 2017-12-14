@@ -1,0 +1,16 @@
+{
+  "messModel":{
+    "path":"F:\\source\\universal-simulator-dtplatform\\src\\main\\resources\\test1.json"
+  },
+  "execute":{
+    "startTime":"",
+    "endTme":"",
+    "totalMessage":""
+  },
+  "output":[
+    "kafka",
+    "hdfs",
+    "localFile"
+  ]
+
+}

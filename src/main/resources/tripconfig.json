@@ -1,0 +1,103 @@
+{
+    "TRIP": {
+        "SIMULATE_STARTTIME": "2017-01-01 06:00:00",
+        "SIMULATE_ENDTIME": "2017-01-01 6:10:00",
+        "TRIP_SIMULATE_SWITCH":"on",
+        "REGULAR_SIMULATE_SWITCH":"off",
+        "ALARM_SIMULATE_SWITCH":"off",
+        "FINE_SIMULATE_SWITCH":"off",
+        "SPEED_LIMIT_TYPE":"TEN_DATA",
+        "MSG_INTERVAL":"1",
+        "ACCELERATOR":"1000",
+        "TARIFF_RATE_RANGE":[-0.1,0.1],
+        "INTERVAL_DIVIDE":"10",
+        "VEHICLE_PREFIX":"300e3aef54a3141b0154a31855e",
+        "VEHICLE_OFFSET":"10000"
+    },
+    "REGULAR_DATA_CFG": {
+        "VEHICLE_NUM_PER_THREAD":10,
+        "KAFKA_MIN_QUEUED_MSG":10,
+        "KAFKA_LINGER_MS":300
+    },
+    "FILE_PATH": {
+        "JSON_PATH":"src/main/python/com/dtyunxi/dtplatform/datasimulator/jsonfile/tripevent.json",
+        "LOGCONF_FILE":"D:/work/gitcode/newretail-dtplatform/src/main/python/com/dtyunxi/dtplatform/datasimulator/common/logging.conf"
+    },
+    "PATH": {
+        "PATH_LIST": [
+            {
+                "PATH_ID": "0",
+                "TRIP_NUM": "1"
+            },
+            {
+                "PATH_ID": "1",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "2",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "3",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "4",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "5",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "6",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "7",
+                "TRIP_NUM": "0"
+            },
+            {
+                "PATH_ID": "8",
+                "TRIP_NUM": "0"
+            }
+        ],
+        "VEHICLE_NUM": "1",
+        "SPEED": "40"
+    },
+    "ALARM_TYPE": {
+        "TYPE_LIST": [
+                {
+                "TYPE": "irregularBooking",
+                "RATE": "0.6"
+            },
+            {
+                "TYPE": "vehicleStatusIssue",
+                "RATE":0.4
+            }
+        ],
+        "NUM":"5"
+	},
+	"FINE_TYPE":{
+		"TYPE_LIST":[
+			{
+				"TYPE":"NEW",
+				"RATE":"0.4"
+			},
+			{
+				"TYPE":"UPDATE",
+				"RATE":"0.6"
+			}
+		],
+		"NUM":"5"
+	},
+	"PROFILE":{
+		"ENTERPRISE":[{"enterprise_id":"enterprise_01_id","fleet_id":"fleet_01_id"},{"enterprise_id":"enterprise_02_id","fleet_id":"fleet_02_id"},{"enterprise_id":"enterprise_03_id","fleet_id":"fleet_03_id"},{"enterprise_id":"enterprise_04_id","fleet_id":"fleet_04_id"}]
+	},
+	"ERROR_SIMULATE":{
+		"SWITCH":"off",
+		"RANDOM":"off",
+		"CORRECT_SIZE":"2",
+		"ERROR_TYPE_ORDER":"missing_key"
+	}
+}

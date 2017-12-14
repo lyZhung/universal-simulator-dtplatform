@@ -1,0 +1,58 @@
+{
+    "version": 1,
+    "disable_existing_loggers": false,
+    "formatters": {
+        "standard": {
+            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        },
+        "logstash": {
+            "()": "logstash_formatter.LogstashFormatter"
+        },
+        "elogging_format": {
+            "format": "[%(asctime)s][%(levelname)s][%(appName)s][%(correlationId)s] %(message)s"
+        }
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "elogging_format"
+        },
+        "info_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "INFO",
+            "formatter": "elogging_format",
+            "filename": "/var/log/applog/info.log"
+        },
+        "debug_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "DEBUG",
+            "formatter": "elogging_format",
+            "filename": "/var/log/applog/debug.log"
+        },
+        "error_file_handler": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "level": "ERROR",
+            "formatter": "elogging_format",
+            "filename": "/var/log/applog/errors.log"
+        },
+        "kafka_handler":{
+                        "class":"python_kafka_logging.KafkaHandler.KafkaLoggingHandler",
+                        "level": "DEBUG",
+                        "formatter":"logstash",
+                        "hosts_list":"192.168.33.21:6667",
+                        "topic":"dtyunxi_elog"
+        }
+    },
+    "loggers": {
+        "elog": {
+            "level": "DEBUG",
+            "handlers": ["console","debug_file_handler","kafka_handler"],
+            "propagate": "no"
+        },
+       "root": {
+            "level": "DEBUG",
+            "handlers": ["console","debug_file_handler","kafka_handler"]
+        }
+    }
+}

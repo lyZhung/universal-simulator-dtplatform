@@ -1,0 +1,24 @@
+[
+    {
+        "type":"NEW",
+        "tag":[
+                {
+                    "event":"NEW"
+                },
+                {
+                    "event":"AUTOSENT"
+                }
+        ]                
+    },
+    {
+        "type":"UPDATE",
+        "tag":[
+                {
+                    "event":"SENT"
+                },
+                {
+                    "event":"CANCELLED"
+                }
+        ]
+    }
+]

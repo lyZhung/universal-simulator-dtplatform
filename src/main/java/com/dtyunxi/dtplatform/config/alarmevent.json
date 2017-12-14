@@ -1,0 +1,18 @@
+{
+	"eventName": "ALARM",
+	"version": "1.0",
+	"eventType": "NEW",
+	"timeInMs": 1464028235,
+	"oem": "RTA",
+	"entityId": "$ALARM_ID",
+	"value": {
+                "tag" : "speedLimitVoiloation",  
+                "type":"bussiness",
+                "vehicleId": "$VIN",
+                "created" : "2016-11-29T06:13:53.132Z",  
+                "driverName":"Bill Gates",
+                "companyName": "Uber",
+                "LicensePlate" : "A123456",
+                "vehicleType" : "taxi"
+	 }
+}
