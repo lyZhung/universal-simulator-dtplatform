@@ -1,80 +1,87 @@
 package com.dtyunxi.dtplatform.utils;
 
 import com.dtyunxi.dtplatform.model.Config;
+import com.dtyunxi.dtplatform.model.Model;
 import com.dtyunxi.dtplatform.simulator.UniversalDataSimulator;
 import kafka.javaapi.producer.Producer;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.log4j.Logger;
 import org.bson.*;
+import scala.Int;
+
+import java.util.List;
+import java.util.Map;
 
 public class SimulatorUtils {
 
-    public static Long totalMessing=1L;
+    public  Long totalMessing=1L;
     public static Logger logger = Logger.getLogger(SimulatorUtils.class);
 
-    public static void dataSimulator(Config config, UniversalDataSimulator universalDataSimulator){
-        String[] messModels = config.getMessModels();
-        String[] topics = config.getTopics();
-        String[] localPaths = config.getLocalPaths();
-        String[] fsPaths = config.getFsPaths();
-        FileSystem fileSystem = config.getFileSystem();
-        Producer<String, String> producer = config.getProducer();
-        Long totalMess = Long.parseLong(config.getTotalMess().equals("")?String.valueOf(Long.MAX_VALUE):config.getTotalMess());
-        while (true){
-            for (int j = 0; j < messModels.length; j++) {
-                String message=null;
-                try{
-                    Document messModelDoc = Document.parse(JsonUtils.getJson(messModels[j]));
-                    Document result = JsonUtils.getJsonArrayByRegex(messModelDoc);
-                    message=result.toJson();
-                }catch (BsonInvalidOperationException e){
-                    BsonArray result = new BsonArray();
-                    BsonArray bsonArray= BsonArray.parse(JsonUtils.getJson(messModels[j]));
-                    for (BsonValue bsonValue : bsonArray) {
-                        String json = bsonValue.asDocument().toJson();
-                        Document documentByRegex = JsonUtils.getJsonArrayByRegex(Document.parse(json));
-                        result.add(BsonDocument.parse(documentByRegex.toJson()));
-                    }
-                    message=StringUtils.getSubstring(result.toString());
-                }
-                    if (!(topics.length==1&&topics[0].equals(""))){
-                        /**
-                         * 发送消息到kafka
-                         */
-                        try{
-                            KafkaUtils.sendMess(topics[j],message,producer);
-                        }catch (ArrayIndexOutOfBoundsException e){
+    public  void dataSimulator(Config config, final Model model, final UniversalDataSimulator universalDataSimulator){
+        final String vmodel = model.getModel();
+        final Long total = Long.parseLong(model.getTotal().equals("")?String.valueOf(Long.MAX_VALUE):model.getTotal());
+        final List<Map<String, String>> exports = model.getExports();
+        final FileSystem fileSystem = config.getFileSystem();
+        final Producer<String, String> producer = config.getProducer();
+        Integer threads = Integer.valueOf(model.getThreads());
+        ThreadGroup threadGroup = new ThreadGroup(model.getModel());
 
-                        }
-                    }
-                    /**
-                     * 写数据到本地文件
-                     */
-                    if (!(localPaths.length==1&&localPaths[0].equals(""))){
+        for (int i = 0; i < threads; i++) {
+           new Thread(threadGroup,new Runnable() {
+                public void run() {
+                    while (true) {
+                        String message = null;
                         try {
-                            FileUtils.writeMess(message,localPaths[j]);
-                        }catch (ArrayIndexOutOfBoundsException e){
+                            Document messModelDoc = Document.parse(JsonUtils.getJson(vmodel));
+                            Document result = JsonUtils.getJsonArrayByRegex(messModelDoc);
+                            message = result.toJson();
+                        } catch (BsonInvalidOperationException e) {
+                            BsonArray result = new BsonArray();
+                            BsonArray bsonArray = BsonArray.parse(JsonUtils.getJson(vmodel));
+                            for (BsonValue bsonValue : bsonArray) {
+                                String json = bsonValue.asDocument().toJson();
+                                Document documentByRegex = JsonUtils.getJsonArrayByRegex(Document.parse(json));
+                                result.add(BsonDocument.parse(documentByRegex.toJson()));
+                            }
+                            message = StringUtils.getSubstring(result.toString());
+                        }
 
+                        for (Map<String, String> export : exports) {
+                            String type = export.get("type");
+                            if (type.equals("kafka")) {
+                                String topic = export.get("topic");
+                                if (!topic.equals("")) {
+                                    KafkaUtils.sendMess(topic, message, producer);
+                                }
+                            }
+                            if (type.equals("hdfs")) {
+                                String path = export.get("path");
+                                if (!path.equals("")) {
+                                    HdfsUtils.writeMess(fileSystem, message, path);
+                                }
+                            }
+                            if (type.equals("local")) {
+                                String path = export.get("path");
+                                if (!path.equals("")) {
+                                    FileUtils.writeMess(message, path);
+                                }
+                            }
+                        }
+                        synchronized (universalDataSimulator) {
+                            totalMessing++;
+                            System.out.println("total:" + total + ",Thread.currentThread().getName():" + Thread.currentThread().getName());
+                            if (totalMessing > total) {
+                                logger.warn(model.getModel() + ",data is put already,program is exit.pieces of " + (totalMessing - 1) + " data is produced.");
+                                Thread.currentThread().getThreadGroup().stop();
+
+                            }
                         }
                     }
-                    /**
-                     * 写数据到HDFS
-                     */
-                if (!(fsPaths.length==1&&fsPaths[0].equals(""))){
-                    try {
-                        HdfsUtils.writeMess(fileSystem,message,fsPaths[j]);
-                    }catch (ArrayIndexOutOfBoundsException e){
 
-                    }
                 }
-            }
-            synchronized (universalDataSimulator){
-                totalMessing++;
-                if (totalMessing>totalMess){
-                    logger.warn("data is put already,program is exit.pieces of "+ (SimulatorUtils.totalMessing-1)+" data is produced.");
-                    System.exit(0);
-                }
-            }
+            }).start();
         }
+
+
     }
 }

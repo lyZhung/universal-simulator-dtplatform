@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.security.authentication.util.RandomSignerSecretProvider;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,13 +15,13 @@ import java.net.URISyntaxException;
 public class HdfsUtils {
 
     public static FileSystem getFileSystem(Config config){
+
+        Document server = config.getServer();
+        Document document = (Document) server.get("hdfs");
         Configuration conf= new Configuration();
-        conf.set("dfs.support.append","true");
-        conf .set("dfs.client.block.write.replace-datanode-on-failure.policy" ,"NEVER" );
-        conf .set("dfs.client.block.write.replace-datanode-on-failure.enable" ,"true" );
         FileSystem fileSystem=null;
         try {
-            fileSystem = FileSystem.get(new URI(config.getUri()), conf, config.getUser());
+            fileSystem = FileSystem.get(new URI(document.getString("uri")), conf, document.getString("user"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -31,21 +32,6 @@ public class HdfsUtils {
         return fileSystem;
     }
 
-    public static void create(Config config, FileSystem fileSystem){
-        FSDataOutputStream createOutputStream=null;
-        String[] fsPaths = config.getFsPaths();
-        for (int i = 0; i < fsPaths.length; i++) {
-            Path path = new Path(fsPaths[i]);
-            try {
-                if (!fileSystem.exists(path)){
-                    createOutputStream = fileSystem.create(path);
-                    createOutputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public static void writeMess(FileSystem fileSystem,String log,String remoteFile){
         FSDataOutputStream fsDataOutputStream=null;

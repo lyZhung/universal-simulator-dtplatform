@@ -4,16 +4,19 @@ import com.dtyunxi.dtplatform.model.Config;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
+import org.bson.Document;
 
 import java.util.Properties;
 
 public class KafkaUtils {
 
     public static Producer<String, String> getProducer(Config config){
+        Document server = config.getServer();
+        Document document = (Document) server.get("kafka");
         Properties properties=new Properties();
-        properties.setProperty("metadata.broker.list",config.getMetadata_broker_list());
-        properties.setProperty("producer.type",config.getProducer_type());
-        properties.setProperty("serializer.class",config.getSerializer_class());
+        properties.setProperty("metadata.broker.list",document.getString("metadata.broker.list"));
+        properties.setProperty("producer.type",document.getString("producer.type"));
+        properties.setProperty("serializer.class",document.getString("serializer.class"));
         /**
          * 创建producer对象
          */
@@ -31,7 +34,5 @@ public class KafkaUtils {
         //发送一个消息
         producer.send(message);
     }
-
-
 
 }

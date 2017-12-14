@@ -1,4 +1,5 @@
 import com.dtyunxi.dtplatform.model.Config;
+import com.dtyunxi.dtplatform.model.Model;
 import com.dtyunxi.dtplatform.utils.*;
 import com.mifmif.common.regex.Generex;
 import kafka.javaapi.producer.Producer;
@@ -161,7 +162,7 @@ public class Test {
 
     @org.junit.Test
     public void testKafkaUtils(){
-        String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\config.json";
+       /* String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\config.json";
         Config config = ConfigUtils.getConfig(configFile);
         System.out.println(config.getTopics()[0]);
         System.out.println(config.getMetadata_broker_list());
@@ -169,19 +170,19 @@ public class Test {
         String log="{ \"version\" : [\"1\", \"2\", \"3\"], \"disable_existing_loggers\" : \"true\", \"formatters\" : { \"standard\" : { \"format\" : \"m6XdN.55080.410\" }, \"logstash\" : { \"()\" : \"logstash_formatter.LogstashFormatter\" }, \"elogging_format\" : { \"format\" : \"9IC.695.480\" } }, \"handlers\" : { \"console\" : { \"class\" : \"logging.StreamHandler\", \"level\" : \"DEBUG\", \"formatter\" : \"elogging_format\" }, \"info_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"ERROR\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/info.log\" }, \"debug_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"INFO\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/debug.log\" }, \"error_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"WARN\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/errors\" }, \"kafka_handler\" : { \"class\" : \"python_kafka_logging.KafkaHandler.KafkaLoggingHandler\", \"level\" : \"DEBUG\", \"formatter\" : \"logstash\", \"hosts_list\" : \"192.168.33.21:6667\", \"topic\" : \"dtyunxi_elog\" } }, \"loggers\" : { \"elog\" : { \"level\" : \"WARN\", \"handlers\" : [\"console\", \"debug_file_handler\", \"kafka_handler\"], \"propagate\" : \"no\" }, \"root\" : { \"level\" : \"WARN\", \"handlers\" : [\"console\", \"debug_file_handler\", \"kafka_handler\"] } }, \"path\" : [{ \"event\" : \"bookedTrip\" }, { \"event\" : \"bookedTripStart\" }, { \"event\" : \"bookedTripEnd\" }] }";
         for (int i = 0; i <10 ; i++) {
             KafkaUtils.sendMess("test",log,producer);
-        }
+        }*/
     }
 
     @org.junit.Test
     public void testLocalFile(){
-        String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\config.json";
+        /*String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\config.json";
         Config config = ConfigUtils.getConfig(configFile);
         String[] localPaths = config.getLocalPaths();
         String log="{ \"version\" : [\"1\", \"2\", \"3\"], \"disable_existing_loggers\" : \"true\", \"formatters\" : { \"standard\" : { \"format\" : \"m6XdN.55080.410\" }, \"logstash\" : { \"()\" : \"logstash_formatter.LogstashFormatter\" }, \"elogging_format\" : { \"format\" : \"9IC.695.480\" } }, \"handlers\" : { \"console\" : { \"class\" : \"logging.StreamHandler\", \"level\" : \"DEBUG\", \"formatter\" : \"elogging_format\" }, \"info_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"ERROR\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/info.log\" }, \"debug_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"INFO\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/debug.log\" }, \"error_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"WARN\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/errors\" }, \"kafka_handler\" : { \"class\" : \"python_kafka_logging.KafkaHandler.KafkaLoggingHandler\", \"level\" : \"DEBUG\", \"formatter\" : \"logstash\", \"hosts_list\" : \"192.168.33.21:6667\", \"topic\" : \"dtyunxi_elog\" } }, \"loggers\" : { \"elog\" : { \"level\" : \"WARN\", \"handlers\" : [\"console\", \"debug_file_handler\", \"kafka_handler\"], \"propagate\" : \"no\" }, \"root\" : { \"level\" : \"WARN\", \"handlers\" : [\"console\", \"debug_file_handler\", \"kafka_handler\"] } }, \"path\" : [{ \"event\" : \"bookedTrip\" }, { \"event\" : \"bookedTripStart\" }, { \"event\" : \"bookedTripEnd\" }] }";
         for (int i = 0; i <10 ; i++) {
             FileUtils.writeMess(log,localPaths[0]);
 
-        }
+        }*/
     }
 
     @org.junit.Test
@@ -236,23 +237,25 @@ public class Test {
 
     @org.junit.Test
     public void testFileSystem(){
-        String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\config.json";
+     /*   String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\config.json";
         Config config = ConfigUtils.getConfig(configFile);
         FileSystem fileSystem = HdfsUtils.getFileSystem(config);
         String log="{ \"version\" : [\"1\", \"2\", \"3\"], \"disable_existing_loggers\" : \"true\", \"formatters\" : { \"standard\" : { \"format\" : \"m6XdN.55080.410\" }, \"logstash\" : { \"()\" : \"logstash_formatter.LogstashFormatter\" }, \"elogging_format\" : { \"format\" : \"9IC.695.480\" } }, \"handlers\" : { \"console\" : { \"class\" : \"logging.StreamHandler\", \"level\" : \"DEBUG\", \"formatter\" : \"elogging_format\" }, \"info_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"ERROR\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/info.log\" }, \"debug_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"INFO\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/debug.log\" }, \"error_file_handler\" : { \"class\" : \"logging.handlers.RotatingFileHandler\", \"level\" : \"WARN\", \"formatter\" : \"elogging_format\", \"filename\" : \"/var/log/applog/errors\" }, \"kafka_handler\" : { \"class\" : \"python_kafka_logging.KafkaHandler.KafkaLoggingHandler\", \"level\" : \"DEBUG\", \"formatter\" : \"logstash\", \"hosts_list\" : \"192.168.33.21:6667\", \"topic\" : \"dtyunxi_elog\" } }, \"loggers\" : { \"elog\" : { \"level\" : \"WARN\", \"handlers\" : [\"console\", \"debug_file_handler\", \"kafka_handler\"], \"propagate\" : \"no\" }, \"root\" : { \"level\" : \"WARN\", \"handlers\" : [\"console\", \"debug_file_handler\", \"kafka_handler\"] } }, \"path\" : [{ \"event\" : \"bookedTrip\" }, { \"event\" : \"bookedTripStart\" }, { \"event\" : \"bookedTripEnd\" }] }";
         for (int i = 0; i < 10; i++) {
            HdfsUtils.writeMess(fileSystem,log,"/user/admin/test/log.txt");
-        }
+        }*/
     }
 
     @org.junit.Test
     public void testDocument(){
-        String line="{\"regex\":\"(-[0-9]{2}|[0-9]{2})\\\\.([0-9]{5})\",\"type\":\"double\"}";
+        String line="{\"regex\":\"(-[0-9]{2}|[0-9]{2})\\\\.([0-9]{5})\",\"type\":\"\"}";
         System.out.println(line);
         Document parse = Document.parse(line);
         System.out.println(parse.get("regex"));
         Generex regex = new Generex(parse.getString("regex"));
         System.out.println(regex.random());
+
+        System.out.println(parse.getString("type").equals("")?true:false);
     }
 
     @org.junit.Test
@@ -283,7 +286,35 @@ public class Test {
                 }
             }).start();
         }
+    }
 
+    @org.junit.Test
+    public void testConfig(){
+        String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\configBak.json";
+        Config config = ConfigUtils.getConfig(configFile);
+        System.out.println(config.getStartTime());
+        System.out.println(config.getEndTime());
+        List<Model> models = config.getModels();
+        for (Model model : models) {
+            System.out.println(model.getModel());
+            System.out.println(model.getThreads());
+            System.out.println(model.getTotal());
+            List<Map<String, String>> exports = model.getExports();
+            for (Map<String, String> export : exports) {
+                Set<Map.Entry<String, String>> entries = export.entrySet();
+                for (Map.Entry<String, String> entry : entries) {
+                    System.out.println(entry.getKey()+":"+entry.getValue());
+                }
+            }
+        }
+    }
+
+    @org.junit.Test
+    public void testKafka(){
+        String configFile="F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\configBak.json";
+        Config config = ConfigUtils.getConfig(configFile);
+        Producer<String, String> producer = KafkaUtils.getProducer(config);
+        KafkaUtils.sendMess("simulator1","1313",producer);
 
     }
 }

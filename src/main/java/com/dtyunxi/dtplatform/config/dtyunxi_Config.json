@@ -30,7 +30,11 @@
         "KAFKA_HOSTS": "192.168.33.21:6667",
         "KAFKA_TIME_OUT":"1000"
     },
-    "XianglongConfig": {
+    "HDFS_CFG":{
+      "URI": "hdfs://yx3321.dtyunxi.com:8020",
+      "USER": "admin"
+    },
+  "XianglongConfig": {
         "ETL_IN_KAFKA_TOPIC": "analyze",
         "SPARK_BATCH_DURATION": 10,
         "REDIS_DB_NUMBER": 2,

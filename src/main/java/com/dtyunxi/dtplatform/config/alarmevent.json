@@ -1,18 +1,8 @@
 {
-	"eventName": "ALARM_s",
-	"version": "1.0_s",
-	"eventType": "NEW_s",
-	"timeInMs": "1464028235_l",
-	"oem": "RTA_s",
-	"entityId": "$ALARM_ID_s",
-	"value": {
-                "tag" : "speedLimitVoiloation_s",
-                "type":"bussiness_s",
-                "vehicleId": "$VIN_s",
-                "created" : "2016-11-29T06:13:53\\.132Z_s",
-                "driverName":"Bill Gates_s",
-                "companyName": "Uber_s",
-                "LicensePlate" : "A123456_s",
-                "vehicleType" : "taxi_s"
-	 }
+  "eventName": "{\"regex\":\"TRIP\",\"type\":\"string\"}",
+  "version": "{\"regex\":\"1\\\\.0\",\"type\":\"string\"}",
+  "eventType": "{\"regex\":\"NEW\",\"type\":\"string\"}",
+  "timeInMs": "{\"regex\":\"date\",\"format\":\"yyyy-MM-dd HH:mm:ss\",\"type\":\"string\"}",
+  "oem": "{\"regex\":\"RTA\",\"type\":\"string\"}",
+  "entityId": "{\"regex\":\"$TRIP_ID\",\"type\":\"string\"}"
 }

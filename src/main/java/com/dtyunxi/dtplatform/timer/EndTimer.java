@@ -13,7 +13,7 @@ public class EndTimer extends TimerTask{
     }
 
     public void endSimulator(){
-        logger.warn("Simulator produce data time out,pieces of "+ SimulatorUtils.totalMessing+" data is produced.");
+        logger.warn("Simulator produce data time out,pieces of "+" data is produced.");
         System.exit(0);
     }
 

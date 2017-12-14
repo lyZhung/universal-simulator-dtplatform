@@ -1,65 +1,57 @@
 {
-    "startTime": "2017-12-13 09:00:00",
-    "endTime": "2017-12-13 17:59:15",
-    "models":[
-      {
-        "model":{
-            "path":"",
-            "threads":"1",
-            "totalMess":"100",
-            "output": [
-              {
-                "kafka": {
-                  "metadata.broker.list": "192.168.33.21:6667",
-                  "producer.type": "sync",
-                  "serializer.class": "kafka.serializer.StringEncoder",
-                  "topic": "simulator1"
-                }
-              },
-              {
-                "hdfs": {
-                  "uri": "hdfs://yx3321.dtyunxi.com:8020",
-                  "user": "admin",
-                  "path": ""
-                }
-              },
-              {
-                "localFile": {
-                  "path": ""
-                }
-              }
-            ]
-          }
-      },
+  "server":{
+    "kafka": {
+      "metadata.broker.list": "192.168.33.21:6667",
+      "producer.type":"sync",
+      "serializer.class":"kafka.serializer.StringEncoder"
+    },
+    "hdfs":{
+      "uri":"hdfs://yx3321.dtyunxi.com:8020",
+      "user":"admin"
+    }
+  },
+  "startTime": "2017-12-13 09:00:00",
+  "endTime": "2017-12-14 19:59:15",
 
-      {
-        "model":{
-          "path":"",
-          "threads":"1",
-          "totalMess":"100",
-          "output": [
-            {
-              "kafka": {
-                "metadata.broker.list": "192.168.33.21:6667",
-                "producer.type": "sync",
-                "serializer.class": "kafka.serializer.StringEncoder",
-                "topic": "simulator1"
-              }
-            },
-            {
-              "hdfs": {
-                "uri": "hdfs://yx3321.dtyunxi.com:8020",
-                "user": "admin",
-                "path": ""
-              }
-            },
-            {
-              "localFile": {
-                "path": ""
-              }
-            }
-          ]
+   "models":[
+    {
+      "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json",
+      "threads":"20",
+      "total":"1000",
+      "exports": [
+        {
+          "type":"kafka",
+          "topic": "simulator1"
+        },
+        {
+          "type":"hdfs",
+          "path": ""
+        },
+        {
+          "type":"local",
+          "path": ""
         }
-      }
-     ]
+      ]
+    },
+
+    {
+      "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\alarmevent.json",
+      "threads":"15",
+      "total":"500",
+      "exports": [
+        {
+          "type":"kafka",
+          "topic": "simulator2"
+        },
+        {
+          "type":"hdfs",
+          "path": ""
+        },
+        {
+          "type":"local",
+          "path": ""
+        }
+      ]
+    }
+  ]
 }

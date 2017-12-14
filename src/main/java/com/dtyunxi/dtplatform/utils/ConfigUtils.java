@@ -1,54 +1,82 @@
 package com.dtyunxi.dtplatform.utils;
 
 import com.dtyunxi.dtplatform.model.Config;
+import com.dtyunxi.dtplatform.model.Model;
 import com.dtyunxi.dtplatform.simulator.UniversalDataSimulator;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.log4j.Logger;
 import org.bson.Document;
 import sun.rmi.runtime.Log;
+
+import javax.jws.WebParam;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConfigUtils {
 
     public static Logger logger = Logger.getLogger(ConfigUtils.class);
     public static Config getConfig(String configFile){
-
         String json = JsonUtils.getJson(configFile);
-
         Document document=null;
         try {
             document=Document.parse(json);
         }catch (Exception e){
-            logger.error("config file format is error.");
+            logger.error("config file format is error.please check your config file!");
             System.exit(1);
         }
         Config config = new Config();
-        try {
-            config.setMessModels((((Document) document.get("messModel")).getString("paths")).split(","));
+        String startTime = document.getString("startTime");
+        String endTime = document.getString("endTime");
+        config.setServer((Document)document.get("server"));
 
-            Document execute= (Document) document.get("execute");
-            String startTime=execute.getString("startTime");
-            String endTime=execute.getString("endTime");
-            String threadNum=execute.getString("threadNum");
-            String totalMess=execute.getString("totalMess");
-            config.setStartTime(startTime);
-            config.setEndTime(endTime);
-            config.setThreadNum(threadNum);
-            config.setTotalMess(totalMess);
-
-            Document output = (Document)document.get("output");
-            config.setMetadata_broker_list(((Document) output.get("kafka")).getString("metadata.broker.list"));
-            config.setProducer_type(((Document) output.get("kafka")).getString("producer.type"));
-            config.setSerializer_class(((Document) output.get("kafka")).getString("serializer.class"));
-            config.setTopics(((Document) output.get("kafka")).getString("topics").split(","));
-            config.setFsPaths(((Document) output.get("hdfs")).getString("paths").split(","));
-            config.setUri(((Document) output.get("hdfs")).getString("uri"));
-            config.setUser(((Document) output.get("hdfs")).getString("user"));
-
-
-            config.setLocalPaths(((Document) output.get("localFile")).getString("paths").split(","));
-        }catch (Exception e){
-            logger.error("config file config error,please check");
-        }
+        List<Document> docModels = (List<Document>)document.get("models");
+        List<Model> models = getModels(docModels);
+        config.setStartTime(startTime);
+        config.setEndTime(endTime);
+        config.setModels(models);
         return config;
+    }
+
+    public static List<Model> getModels(List<Document> docModels){
+        List<Model> models = new ArrayList<Model>();
+        for (Document docModel : docModels) {
+            Model model = new Model();
+            String vmodel = docModel.getString("model");
+            String threads = docModel.getString("threads");
+            String total = docModel.getString("total");
+            List<Document> DocExports = (List<Document>)docModel.get("exports");
+            List<Map<String, String>> exports= new ArrayList<Map<String, String>>();
+            for (Document docExport : DocExports) {
+                Map<String, String> map = new HashMap<String, String>();
+                String type = docExport.getString("type");
+                if (type.equals("kafka")){
+                    String topic = docExport.getString("topic");
+                    map.put("type",type);
+                    map.put("topic",topic);
+                }
+
+                if (type.equals("hdfs")){
+                    String path = docExport.getString("path");
+                    map.put("type",type);
+                    map.put("path",path);
+                }
+                if (type.equals("local")){
+                    String path = docExport.getString("path");
+                    map.put("type",type);
+                    map.put("path",path);
+                }
+                exports.add(map);
+            }
+            model.setExports(exports);
+            model.setModel(vmodel);
+            model.setThreads(threads);
+            model.setTotal(total);
+            models.add(model);
+        }
+        return models;
     }
 
 }

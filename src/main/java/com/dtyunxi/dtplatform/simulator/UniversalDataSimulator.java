@@ -15,6 +15,7 @@ import java.util.Timer;
 public class UniversalDataSimulator{
 
     public static Logger logger = Logger.getLogger(UniversalDataSimulator.class);
+
     public static void main(String[] args) {
         if (args.length<1){
             logger.error("Usage:config file");
@@ -22,6 +23,8 @@ public class UniversalDataSimulator{
         }
         String configFile = args[0];
         Config config = ConfigUtils.getConfig(configFile);
+        config.setProducer(KafkaUtils.getProducer(config));
+        config.setFileSystem(HdfsUtils.getFileSystem(config));
         Date startTime = DateUtils.getDate(config.getStartTime());
         Date endTime = DateUtils.getDate(config.getEndTime());
         Timer timer = new Timer();
