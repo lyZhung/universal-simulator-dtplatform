@@ -252,7 +252,7 @@ public class Test {
         System.out.println(line);
         Document parse = Document.parse(line);
         System.out.println(parse.get("regex"));
-        Generex regex = new Generex(parse.getString("regex"));
+        Generex regex = new Generex(parse.getString("454"));
         System.out.println(regex.random());
 
         System.out.println(parse.getString("type").equals("")?true:false);

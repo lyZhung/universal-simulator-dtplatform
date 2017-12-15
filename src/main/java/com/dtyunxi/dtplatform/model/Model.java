@@ -8,6 +8,7 @@ public class Model {
     private String model;
     private String threads;
     private String total;
+    public  Long totaling=1L;
     private List<Map<String,String>> exports;
 
     public Model() {
@@ -19,6 +20,15 @@ public class Model {
         this.total = total;
         this.exports = exports;
     }
+
+    public Long getTotaling() {
+        return totaling;
+    }
+
+    public void setTotaling(Long totaling) {
+        this.totaling = totaling;
+    }
+
     public String getModel() {
         return model;
     }

@@ -1,27 +1,75 @@
 {
-  "messModel":{
-    "paths":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json"
-  },
-  "execute":{
-    "startTime":"2017-12-13 09:00:00",
-    "endTime":"2017-12-19 17:59:15",
-    "threadNum":"10",
-    "totalMess":"5000"
-  },
-  "output": {
-    "kafka":{
+  "server":{
+    "kafka": {
       "metadata.broker.list": "192.168.33.21:6667",
       "producer.type":"sync",
-      "serializer.class":"kafka.serializer.StringEncoder",
-      "topics":"simulator1"
+      "serializer.class":"kafka.serializer.StringEncoder"
     },
     "hdfs":{
       "uri":"hdfs://yx3321.dtyunxi.com:8020",
-      "user":"admin",
-      "paths":""
-    },
-    "localFile":{
-      "paths":""
+      "user":"admin"
     }
-  }
+  },
+  "startTime": "2017-12-13 09:00:00",
+  "endTime": "2017-12-15 16:40:30",
+
+  "models":[
+    {
+      "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json",
+      "threads":"5",
+      "total":"10000",
+      "exports": [
+        {
+          "type":"kafka",
+          "topic": "simulator1"
+        },
+        {
+          "type":"hdfs",
+          "path": ""
+        },
+        {
+          "type":"local",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json",
+      "threads":"5",
+      "total":"500",
+      "exports": [
+        {
+          "type":"kafka",
+          "topic": "simulator2"
+        },
+        {
+          "type":"hdfs",
+          "path": ""
+        },
+        {
+          "type":"local",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "model":"F:\\source\\universal-simulator-dtplatform\\src\\main\\java\\com\\dtyunxi\\dtplatform\\config\\tripevent.json",
+      "threads":"5",
+      "total":"20000",
+      "exports": [
+        {
+          "type":"kafka",
+          "topic": "simulator3"
+        },
+        {
+          "type":"hdfs",
+          "path": ""
+        },
+        {
+          "type":"local",
+          "path": ""
+        }
+      ]
+    }
+  ]
 }

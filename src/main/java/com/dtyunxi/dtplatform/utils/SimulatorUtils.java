@@ -14,6 +14,7 @@ import java.util.Map;
 
 public class SimulatorUtils {
 
+    //不是静态
     public  Long totalMessing=1L;
     public static Logger logger = Logger.getLogger(SimulatorUtils.class);
 
@@ -21,17 +22,16 @@ public class SimulatorUtils {
         final String vmodel = model.getModel();
         final Long total = Long.parseLong(model.getTotal().equals("")?String.valueOf(Long.MAX_VALUE):model.getTotal());
         final List<Map<String, String>> exports = model.getExports();
-        final FileSystem fileSystem = config.getFileSystem();
-        final Producer<String, String> producer = config.getProducer();
+        final FileSystem fileSystem = HdfsUtils.getFileSystem(config);
+        final Producer<String, String> producer = KafkaUtils.getProducer(config);
         Integer threads = Integer.valueOf(model.getThreads());
         ThreadGroup threadGroup = new ThreadGroup(model.getModel());
-
         for (int i = 0; i < threads; i++) {
            new Thread(threadGroup,new Runnable() {
 
                 public void run() {
 
-                    while (!Thread.interrupted()) {
+                    while (Thread.currentThread().isAlive()) {
                         String message = null;
                         try {
                             Document messModelDoc = Document.parse(JsonUtils.getJson(vmodel));
@@ -53,7 +53,11 @@ public class SimulatorUtils {
                             if (type.equals("kafka")) {
                                 String topic = export.get("topic");
                                 if (!topic.equals("")) {
-                                    KafkaUtils.sendMess(topic, message, producer);
+                                    try {
+                                        KafkaUtils.sendMess(topic, message, producer);
+                                    } catch (InterruptedException e) {
+
+                                    }
                                 }
                             }
                             if (type.equals("hdfs")) {
@@ -69,19 +73,15 @@ public class SimulatorUtils {
                                 }
                             }
                         }
-                        synchronized (universalDataSimulator) {
-                            totalMessing++;
-                            if (totalMessing > total) {
-                                logger.warn("The model of ["+model.getModel().substring(model.getModel().lastIndexOf("\\")+1) + "],data is put already,program is exit.pieces of " + (totalMessing - 1) + " data is produced.");
+                        synchronized (this) {
+                            model.totaling++;
+                            if (model.totaling > total) {
+                                logger.warn("The model of ["+model.getModel().substring(model.getModel().lastIndexOf("\\")+1) + "],data is put already,program is exit.pieces of " + (model.totaling-1) + " data is produced.");
                                 Thread.currentThread().getThreadGroup().stop();
-                                System.out.println("Thread.activeCount():"+Thread.activeCount());
-                                if (Thread.activeCount()==1){
-                                    logger.warn("All thread is killed");
-                                    System.exit(0);
-                                }
                             }
                         }
                     }
+
 
                 }
             }).start();

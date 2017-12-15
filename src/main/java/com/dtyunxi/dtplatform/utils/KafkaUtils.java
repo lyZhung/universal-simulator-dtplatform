@@ -26,7 +26,7 @@ public class KafkaUtils {
         return producer;
     }
 
-    public static void sendMess(String topic, String log, Producer producer){
+    public static void sendMess(String topic, String log, Producer producer)throws InterruptedException{
         /**
          * 加载消息
          */
