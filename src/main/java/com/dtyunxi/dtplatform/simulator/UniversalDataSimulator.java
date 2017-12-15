@@ -32,7 +32,6 @@ public class UniversalDataSimulator{
                         metrics-meter-tick-thread-1
                         Attach Listener
                          */
-                        System.out.println("Thread.activeCount():"+Thread.activeCount());
                         if (Thread.activeCount()==6){
                             logger.warn("All data ia put already,program is exit!");
                             System.exit(0);
