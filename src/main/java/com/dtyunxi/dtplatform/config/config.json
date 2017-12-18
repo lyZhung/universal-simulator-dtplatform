@@ -11,7 +11,7 @@
     }
   },
   "startTime": "2017-12-13 09:00:00",
-  "endTime": "2017-12-15 16:40:30",
+  "endTime": "2017-12-18 11:56:10",
 
   "models":[
     {
@@ -22,14 +22,6 @@
         {
           "type":"kafka",
           "topic": "simulator1"
-        },
-        {
-          "type":"hdfs",
-          "path": ""
-        },
-        {
-          "type":"local",
-          "path": ""
         }
       ]
     },
@@ -41,14 +33,6 @@
         {
           "type":"kafka",
           "topic": "simulator2"
-        },
-        {
-          "type":"hdfs",
-          "path": ""
-        },
-        {
-          "type":"local",
-          "path": ""
         }
       ]
     },
@@ -62,11 +46,11 @@
           "topic": "simulator3"
         },
         {
-          "type":"hdfs",
+          "type":"",
           "path": ""
         },
         {
-          "type":"local",
+          "type":"",
           "path": ""
         }
       ]

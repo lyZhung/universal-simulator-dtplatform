@@ -251,9 +251,9 @@ public class Test {
         String line="{\"regex\":\"(-[0-9]{2}|[0-9]{2})\\\\.([0-9]{5})\",\"type\":\"\"}";
         System.out.println(line);
         Document parse = Document.parse(line);
-        System.out.println(parse.get("regex"));
+        /*System.out.println(parse.get("regex"));
         Generex regex = new Generex(parse.getString("454"));
-        System.out.println(regex.random());
+        System.out.println(regex.random());*/
 
         System.out.println(parse.getString("type").equals("")?true:false);
     }
