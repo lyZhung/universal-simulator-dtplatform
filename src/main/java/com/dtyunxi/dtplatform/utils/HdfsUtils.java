@@ -19,6 +19,7 @@ public class HdfsUtils {
         Document server = config.getServer();
         Document document = (Document) server.get("hdfs");
         Configuration conf= new Configuration();
+        conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());
         FileSystem fileSystem=null;
         try {
             fileSystem = FileSystem.get(new URI(document.getString("uri")), conf, document.getString("user"));
