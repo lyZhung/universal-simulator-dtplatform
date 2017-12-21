@@ -37,7 +37,6 @@ public class StartTimer extends TimerTask{
 
     public void startSimulator(){
 
-        final UniversalDataSimulator universalDataSimulator = new UniversalDataSimulator();
         List<Model> models = config.getModels();
         for (final Model model : models) {
            new SimulatorUtils().dataSimulator(config, model);
